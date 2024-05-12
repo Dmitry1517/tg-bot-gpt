@@ -3,7 +3,7 @@ import TeleBot from "telebot"
 
 const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
 
-bot.on("text", async (ctx) => {
+bot.on("text", async (msg) => {
   try {
     const response = await fetch(
       "https://api.proxyapi.ru/openai/v1/chat/completions",
@@ -26,9 +26,9 @@ bot.on("text", async (ctx) => {
       }
     );
     const data = await response.json();
-    ctx.reply(`${data.choices[0].message.content}`);
+    msg.reply(`${data.choices[0].message.content}`);
   } catch (error) {
-    ctx.reply("Произошла ошибка при запросе к API");
+    msg.reply("Произошла ошибка при запросе к API");
   }
 });
 
