@@ -3,33 +3,6 @@ import TeleBot from "telebot"
 
 const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
 
-bot.on("text", async (msg) => {
-  try {
-    const response = await fetch(
-      "https://api.proxyapi.ru/openai/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.PROXY_API_TOKEN}`,
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "user",
-              content: ctx.message.text,
-            },
-          ],
-          temperature: 0.7,
-        }),
-      }
-    );
-    const data = await response.json();
-    msg.reply.text(`${data.choices[0].message.content}`);
-  } catch (error) {
-    msg.reply.text("Произошла ошибка при запросе к API");
-  }
-});
+bot.on("text", msg => msg.reply.text(msg.text))
 
 export default bot
