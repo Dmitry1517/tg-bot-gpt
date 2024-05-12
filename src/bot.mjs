@@ -26,9 +26,9 @@ bot.on("text", async (msg) => {
       }
     );
     const data = await response.json();
-    msg.reply(`${data.choices[0].message.content}`);
+    msg.reply.text(`${data.choices[0].message.content}`);
   } catch (error) {
-    msg.reply("Произошла ошибка при запросе к API");
+    msg.reply.text("Произошла ошибка при запросе к API");
   }
 });
 
