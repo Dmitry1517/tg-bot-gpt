@@ -3,6 +3,6 @@ import TeleBot from "telebot"
 
 const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
 
-bot.on("text", msg => msg.reply.text("Скоро я научусть отвечать!!!"))
+bot.on("text", msg => msg.reply.text("Скоро я научусть отвечать, как чат ГПТ!!!"))
 
 export default bot
