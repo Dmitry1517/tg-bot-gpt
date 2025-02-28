@@ -1,6 +1,7 @@
-import TeleBot from "telebot"
+//import TeleBot from "telebot"
 //import fetch from "node-fetch";
 
+const Telebot = require("telebot");
 const fs = require("fs");
 const path = require("path");
 const ytdlp = require("yt-dlp-exec").exec;
