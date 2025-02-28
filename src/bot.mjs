@@ -1,18 +1,18 @@
-//import TeleBot from "telebot"
+import TeleBot from "telebot"
 //import fetch from "node-fetch";
 
-//const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
+const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
 
 //bot.on("text", msg => msg.reply.text(msg.text + ' (Я тестовый Ботик)'))
 
-const Telebot = require("telebot");
+//const Telebot = require("telebot");
 const fs = require("fs");
 const path = require("path");
 const ytdlp = require("yt-dlp-exec").exec;
 
 
 
-const bot = new Telebot(process.env.TELEGRAM_BOT_TOKEN);
+//const bot = new Telebot(process.env.TELEGRAM_BOT_TOKEN);
 
 // Обработка команды /start
 bot.on(["/start"], (msg) => {
