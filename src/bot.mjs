@@ -66,7 +66,7 @@ bot.on("message", async (msg) => {
   }
 });
 
-// Запуск сервера
-// app.listen(port, () => {
-//   console.log(`Сервер запущен на http://localhost:${port}`);
-// });
+//Запуск сервера
+app.listen(port, () => {
+  console.log(`Сервер запущен на http://localhost:${port}`);
+});
