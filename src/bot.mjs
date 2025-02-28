@@ -22,7 +22,7 @@ const bot = new Telebot({
 // Обработка команды /start
 bot.on(["/start"], (msg) => {
   //const chatId = msg.chat.id;
-  return bot.sendMessage(msg.from.id, "Привет! Отправь мне ссылку на видео с YouTube, и я скачаю его для тебя.");
+  msg.reply.text("Привет! Отправь мне ссылку на видео с YouTube, и я скачаю его для тебя.");
 });
 
 // Обработка текстовых сообщений
