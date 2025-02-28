@@ -12,12 +12,7 @@ const ytdlp = require("yt-dlp-exec").exec;
 
 
 
-const bot = new Telebot({
-  token: process.env.TELEGRAM_BOT_TOKEN,
-  polling: {
-    interval: 1000, // Интервал опроса сервера Telegram
-  },
-});
+const bot = new Telebot(process.env.TELEGRAM_BOT_TOKEN);
 
 // Обработка команды /start
 bot.on(["/start"], (msg) => {
