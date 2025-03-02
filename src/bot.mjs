@@ -10,6 +10,16 @@ bot.on("/start", msg => {
   return bot.sendMessage(chatId, "Привет! Отправь мне ссылку на видео с YouTube, и я скачаю его для тебя.");
 })
 
+bot.on("text", async msg => {
+  const chatId = msg.chat.id;
+  const text = msg.text;
+  if (text.includes("youtube.com") || text.includes("youtu.be")) {
+    await bot.sendMessage(chatId, "Скачиваю видео...");
+  } else {
+    await bot.sendMessage(chatId, `Вы написали: ${text}`);
+  }
+})
+
 
 
 export default bot
