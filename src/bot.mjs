@@ -24,7 +24,7 @@ bot.on("text", async msg => {
 
       // Генерируем уникальное имя файла
       const fileName = `video_${Date.now()}.mp4`;
-      await bot.sendMessage(fileName);
+      await bot.sendMessage(`Скачиваю видео ${fileName}`);
       //const filePath = path.join(__dirname, fileName);
 
       // Скачиваем видео с помощью yt-dlp-exec
