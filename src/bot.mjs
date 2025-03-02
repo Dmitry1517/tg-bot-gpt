@@ -19,12 +19,13 @@ bot.on("text", async msg => {
   const text = msg.text;
   if (text.includes("youtube.com") || text.includes("youtu.be")) {
     try {
+      const fileName = `video_${Date.now()}.mp4`;
       // Сообщаем пользователю, что началась загрузка
-      await bot.sendMessage(chatId, "Скачиваю видео...");
+      await bot.sendMessage(chatId, `Скачиваю видео... ${fileName}`);
 
       // Генерируем уникальное имя файла
-      const fileName = `video_${Date.now()}.mp4`;
-      await bot.sendMessage(`Скачиваю видео ${fileName}`);
+
+      //await bot.sendMessage(`Скачиваю видео ${fileName}`);
       //const filePath = path.join(__dirname, fileName);
 
       // Скачиваем видео с помощью yt-dlp-exec
