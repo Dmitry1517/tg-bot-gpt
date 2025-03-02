@@ -24,19 +24,20 @@ bot.on("text", async msg => {
 
       // Генерируем уникальное имя файла
       const fileName = `video_${Date.now()}.mp4`;
-      const filePath = path.join(__dirname, fileName);
+      await bot.sendMessage(fileName);
+      //const filePath = path.join(__dirname, fileName);
 
       // Скачиваем видео с помощью yt-dlp-exec
-      await ytdlp(text, {
-        output: filePath,
-        format: "mp4",
-      });
+      // await ytdlp(text, {
+      //   output: filePath,
+      //   format: "mp4",
+      // });
 
       // Отправляем видео пользователю
-      await bot.sendVideo(chatId, filePath);
+      //await bot.sendVideo(chatId, filePath);
 
       // Удаляем файл после отправки
-      fs.unlinkSync(filePath);
+      //fs.unlinkSync(filePath);
     } catch (error) {
       await bot.sendMessage(chatId, "Не удалось скачать видео. Попробуйте другую ссылку.");
     }
