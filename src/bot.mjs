@@ -21,7 +21,7 @@ bot.on("text", async msg => {
     try {
       const fileName = `video_${Date.now()}.mp4`;
       // Сообщаем пользователю, что началась загрузка
-      await bot.sendMessage(chatId, `Скачиваю видео... ${fileName}`);
+      await bot.sendMessage(chatId, "Скачиваю видео..." + fileName);
 
       // Генерируем уникальное имя файла
 
