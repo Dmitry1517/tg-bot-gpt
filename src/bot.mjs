@@ -19,7 +19,7 @@ bot.on("text", async msg => {
   const text = msg.text;
   if (text.includes("youtube.com") || text.includes("youtu.be")) {
     try {
-      const fileName = `video_${Date.now()}.mp4`;
+      //const fileName = `video_${Date.now()}.mp4`;
       // Сообщаем пользователю, что началась загрузка
       await bot.sendMessage(chatId, "Скачиваю видео...");
 
