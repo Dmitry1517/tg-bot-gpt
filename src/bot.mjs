@@ -1,52 +1,52 @@
-import TeleBot from "telebot"
+//import TeleBot from "telebot"
 //import fetch from "node-fetch";
 
-const fs = require("fs");
-const path = require("path");
-const ytdlp = require("yt-dlp-exec").exec;
 
-const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
+
+//const bot = new TeleBot(process.env.TELEGRAM_BOT_TOKEN)
 
 //bot.on("text", msg => msg.reply.text(msg.text + ' (Я тестовый Ботик)'))
 
-bot.on("/start", msg => {
-  const chatId = msg.chat.id;
-  return bot.sendMessage(chatId, "Привет! Отправь мне ссылку на видео с YouTube, и я скачаю его для тебя.");
-})
+const { Telegraf } = require('telegraf');
+const ytdl = require('ytdl-core');
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
-bot.on("text", async msg => {
-  const chatId = msg.chat.id;
-  const text = msg.text;
-  if (text.includes("youtube.com") || text.includes("youtu.be")) {
-    try {
-      //const fileName = `video_${Date.now()}.mp4`;
-      // Сообщаем пользователю, что началась загрузка
-      return await bot.sendMessage(chatId, "Скачиваю видео...");
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
 
-      // Генерируем уникальное имя файла
+bot.start((ctx) => ctx.reply('Send me a YouTube link and I will download the video for you.'));
 
-      //await bot.sendMessage(`Скачиваю видео ${fileName}`);
-      //const filePath = path.join(__dirname, fileName);
+bot.on('text', async (ctx) => {
+  const url = ctx.message.text;
 
-      // Скачиваем видео с помощью yt-dlp-exec
-      // await ytdlp(text, {
-      //   output: filePath,
-      //   format: "mp4",
-      // });
-
-      // Отправляем видео пользователю
-      //await bot.sendVideo(chatId, filePath);
-
-      // Удаляем файл после отправки
-      //fs.unlinkSync(filePath);
-    } catch (error) {
-      await bot.sendMessage(chatId, "Не удалось скачать видео. Попробуйте другую ссылку.");
-    }
-
-  } else {
-    return await bot.sendMessage(chatId, `Вы написали: ${text}`);
+  if (!ytdl.validateURL(url)) {
+    return ctx.reply('Please send a valid YouTube link.');
   }
-})
+
+  const info = await ytdl.getInfo(url);
+  const title = info.videoDetails.title;
+  const videoPath = path.resolve(__dirname, `${title}.mp4`);
+
+  ctx.reply('Downloading video, please wait...');
+
+  ytdl(url)
+    .pipe(fs.createWriteStream(videoPath))
+    .on('finish', () => {
+      ctx.replyWithVideo({ source: videoPath }).then(() => {
+        fs.unlinkSync(videoPath); // Delete the video file after sending
+      });
+    })
+    .on('error', (err) => {
+      ctx.reply('Failed to download the video. Please try again later.');
+      console.error(err);
+    });
+});
+
+bot.launch();
+
+process.once('SIGINT', () => bot.stop('SIGINT'));
+process.once('SIGTERM', () => bot.stop('SIGTERM'));
 
 
 
